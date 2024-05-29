@@ -25,6 +25,8 @@ classifiers = [
 ]
 
 dependencies = [
+    "pydantic",
+    "pydantic_settings",
 ]
 
 [project.urls]
@@ -70,6 +72,7 @@ extend-ignore = "E203,E701"
 python_version = "3.10"
 warn_return_any = true
 warn_unused_configs = true
+plugins = ["pydantic.mypy"]
 
 [tool.pydantic.mypy]
 init_typed = true
