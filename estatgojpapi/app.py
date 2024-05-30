@@ -3,7 +3,7 @@ from urllib.request import Request, urlopen
 
 from pydantic import AnyHttpUrl
 
-from .models import GetStatsListResponse
+from .models import GetMetaInfoResponse, GetStatsListResponse
 
 
 class App:
@@ -15,3 +15,8 @@ class App:
         req = Request(urljoin(str(self._base_url), "getStatsList") + f"?appId={self._app_id}")
         with urlopen(req) as res:
             return GetStatsListResponse.model_validate_json(res.read().decode("utf-8"))
+
+    def get_meta_info(self, statsDataId: str) -> GetMetaInfoResponse:
+        req = Request(urljoin(str(self._base_url), "getMetaInfo") + f"?appId={self._app_id}&statsDataId={statsDataId}")
+        with urlopen(req) as res:
+            return GetMetaInfoResponse.model_validate_json(res.read().decode("utf-8"))
