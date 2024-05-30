@@ -1,3 +1,5 @@
+from pydantic import AnyHttpUrl
+
 from estatgojpapi.app import App
 from estatgojpapi.models import GetMetaInfoResponse, GetStatsListResponse
 from estatgojpapi.settings import AppSettings
@@ -19,3 +21,11 @@ def test_app_get_meta_info(app_id_for_test: str, http_server_fixture: str) -> No
     meta_info = app.get_meta_info(statsDataId="0000000000")
     assert isinstance(meta_info, GetMetaInfoResponse)
     assert meta_info == GetMetaInfoResponse.model_validate(sample_get_meta_info_json)
+
+
+def test_app_create() -> None:
+    settings = AppSettings(app_id="test", base_url="http://example.com")
+    app = App.create(settings=settings)
+    assert isinstance(app, App)
+    assert app.app_id == "test"
+    assert app.base_url == AnyHttpUrl("http://example.com")
