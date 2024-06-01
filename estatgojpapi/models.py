@@ -224,6 +224,7 @@ class TableInf(BaseModel):
 
 
 class ResultInf(BaseModel):
+    total_number: Optional[int] = None
     from_number: int
     to_number: int
 
@@ -288,12 +289,6 @@ class GetMetaInfoResponse(BaseModel):
     get_meta_info: GetMetaInfo
 
 
-class StatsDataResultInf(BaseModel):
-    total_number: int
-    from_number: int
-    to_number: int
-
-
 class Note(BaseModel):
     char: str
     value: str
@@ -313,7 +308,7 @@ class DataInf(BaseModel):
 
 
 class StatisticalData(BaseModel):
-    result_inf: StatsDataResultInf
+    result_inf: ResultInf
     table_inf: TableInf
     class_inf: ClassInf
     data_inf: DataInf
