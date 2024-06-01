@@ -7,7 +7,11 @@ from urllib.parse import parse_qs, urlparse
 
 from pytest import fixture
 
-from .fixtures import sample_get_meta_info_json, sample_get_stat_list_json
+from .fixtures import (
+    sample_get_meta_info_json,
+    sample_get_stat_list_json,
+    sample_get_stats_data_json,
+)
 
 
 @fixture
@@ -40,6 +44,17 @@ def http_server_fixture(app_id_for_test: str) -> Generator[str, None, None]:
                 self.send_header("Content-type", "application/json; charset=utf-8")
                 self.end_headers()
                 self.wfile.write(json.dumps(sample_get_meta_info_json).encode("utf-8"))
+            elif path == "/getStatsData":
+                if "statsDataId" not in query or query["statsDataId"][0] != "0000000000":
+                    self.send_response(400)
+                    self.send_header("Content-type", "text/plain; charset=utf-8")
+                    self.end_headers()
+                    self.wfile.write("Bad Request".encode("utf-8"))
+                    return
+                self.send_response(200)
+                self.send_header("Content-type", "application/json; charset=utf-8")
+                self.end_headers()
+                self.wfile.write(json.dumps(sample_get_stats_data_json).encode("utf-8"))
             elif path == "/getStatsList":
                 self.send_response(200)
                 self.send_header("Content-type", "application/json; charset=utf-8")

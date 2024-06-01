@@ -30,6 +30,16 @@ def to_estat_attribute_name(name: str) -> str:
     '@unit'
     >>> to_estat_attribute_name('parent_code')
     '@parentCode'
+    >>> to_estat_attribute_name('value_')
+    'VALUE'
+    >>> to_estat_attribute_name('cat01')
+    '@cat01'
+    >>> to_estat_attribute_name('cat02')
+    '@cat02'
+    >>> to_estat_attribute_name('time')
+    '@time'
+    >>> to_estat_attribute_name('char')
+    '@char'
     """
     return {
         "id": "@id",
@@ -40,6 +50,11 @@ def to_estat_attribute_name(name: str) -> str:
         "class_": "CLASS",
         "unit": "@unit",
         "parent_code": "@parentCode",
+        "value_": "VALUE",
+        "cat01": "@cat01",
+        "cat02": "@cat02",
+        "time": "@time",
+        "char": "@char",
     }.get(name, to_upper_snake(name))
 
 
@@ -271,3 +286,44 @@ class GetMetaInfo(BaseModel):
 
 class GetMetaInfoResponse(BaseModel):
     get_meta_info: GetMetaInfo
+
+
+class StatsDataResultInf(BaseModel):
+    total_number: int
+    from_number: int
+    to_number: int
+
+
+class Note(BaseModel):
+    char: str
+    value: str
+
+
+class Value(BaseModel):
+    cat01: str
+    cat02: str
+    time: str
+    unit: str
+    value: str
+
+
+class DataInf(BaseModel):
+    note: Note
+    value_: list[Value]
+
+
+class StatisticalData(BaseModel):
+    result_inf: StatsDataResultInf
+    table_inf: TableInf
+    class_inf: ClassInf
+    data_inf: DataInf
+
+
+class GetStatsData(BaseModel):
+    result: Result
+    parameter: Parameter
+    statistical_data: StatisticalData
+
+
+class GetStatsDataResponse(BaseModel):
+    get_stats_data: GetStatsData
