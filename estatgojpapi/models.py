@@ -40,6 +40,8 @@ def to_estat_attribute_name(name: str) -> str:
     '@time'
     >>> to_estat_attribute_name('char')
     '@char'
+    >>> to_estat_attribute_name('level')
+    '@level'
     """
     return {
         "id": "@id",
@@ -55,6 +57,7 @@ def to_estat_attribute_name(name: str) -> str:
         "cat02": "@cat02",
         "time": "@time",
         "char": "@char",
+        "level": "@level",
     }.get(name, to_upper_snake(name))
 
 
