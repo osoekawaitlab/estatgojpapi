@@ -6,9 +6,7 @@ from .models import StatisticalData
 def process_statistical_data(data: StatisticalData) -> List[Dict[str, str]]:
     category_name_map = {d.id: d.name for d in data.class_inf.class_obj}
     code_detail_map = {
-        d.id: {
-            c.code: c.model_dump(exclude_none=True) for c in (d.class_ if isinstance(d.class_, list) else [d.class_])
-        }
+        d.id: {c.code: c.model_dump() for c in (d.class_ if isinstance(d.class_, list) else [d.class_])}
         for d in data.class_inf.class_obj
     }
     return [
