@@ -1,0 +1,2 @@
+class BaseEstatGoJpApiException(Exception):
+    pass
