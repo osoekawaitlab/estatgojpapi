@@ -19,13 +19,13 @@ class App:
         with urlopen(req) as res:
             return GetStatsListResponse.model_validate_json(res.read().decode("utf-8"))
 
-    def get_meta_info(self, statsDataId: str) -> GetMetaInfoResponse:
-        req = Request(urljoin(str(self.base_url), "getMetaInfo") + f"?appId={self.app_id}&statsDataId={statsDataId}")
+    def get_meta_info(self, stats_data_id: str) -> GetMetaInfoResponse:
+        req = Request(urljoin(str(self.base_url), "getMetaInfo") + f"?appId={self.app_id}&statsDataId={stats_data_id}")
         with urlopen(req) as res:
             return GetMetaInfoResponse.model_validate_json(res.read().decode("utf-8"))
 
-    def get_stats_data(self, statsDataId: str) -> GetStatsDataResponse:
-        req = Request(urljoin(str(self.base_url), "getStatsData") + f"?appId={self.app_id}&statsDataId={statsDataId}")
+    def get_stats_data(self, stats_data_id: str) -> GetStatsDataResponse:
+        req = Request(urljoin(str(self.base_url), "getStatsData") + f"?appId={self.app_id}&statsDataId={stats_data_id}")
         with urlopen(req) as res:
             return GetStatsDataResponse.model_validate_json(res.read().decode("utf-8"))
 
@@ -60,3 +60,10 @@ class AppWithStorage(App):
         stats_list = super(AppWithStorage, self).get_stats_list()
         self.storage.store_stats_list(stats_list)
         return stats_list
+
+    def get_meta_info(self, stats_data_id: str) -> GetMetaInfoResponse:
+        if self.storage.has_meta_info(stats_data_id=stats_data_id):
+            return self.storage.get_meta_info(stats_data_id=stats_data_id)
+        meta_info = super(AppWithStorage, self).get_meta_info(stats_data_id=stats_data_id)
+        self.storage.store_meta_info(meta_info=meta_info)
+        return meta_info
