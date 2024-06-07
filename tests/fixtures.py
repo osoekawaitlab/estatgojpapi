@@ -1,3 +1,9 @@
+from estatgojpapi.models import (
+    GetMetaInfoResponse,
+    GetStatsDataResponse,
+    GetStatsListResponse,
+)
+
 sample_get_stat_list_json = {
     "GET_STATS_LIST": {
         "RESULT": {"STATUS": 0, "ERROR_MSG": "正常に終了しました。", "DATE": "2024-05-28T21:53:34.506+09:00"},
@@ -272,3 +278,8 @@ sample_get_stats_data_json = {
         },
     }
 }
+
+
+sample_get_stat_list = GetStatsListResponse.model_validate(sample_get_stat_list_json)
+sample_get_meta_info = GetMetaInfoResponse.model_validate(sample_get_meta_info_json)
+sample_get_stats_data = GetStatsDataResponse.model_validate(sample_get_stats_data_json)
