@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Annotated, Literal, Union
+from typing import Annotated, Literal, Optional, Union
 
 from pydantic import AnyHttpUrl, DirectoryPath, Field, NewPath
 from pydantic_settings import BaseSettings as PydanticBaseSettings
@@ -41,4 +41,4 @@ class AppSettings(BaseSettings):
 
     app_id: str
     base_url: AnyHttpUrl = AnyHttpUrl("https://api.e-stat.go.jp/rest/3.0/app/json/")
-    storage_settings: StorageSettings = MemoryStorageSettings()
+    storage_settings: Optional[StorageSettings] = None
