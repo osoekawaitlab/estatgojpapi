@@ -67,3 +67,10 @@ class AppWithStorage(App):
         meta_info = super(AppWithStorage, self).get_meta_info(stats_data_id=stats_data_id)
         self.storage.store_meta_info(meta_info=meta_info)
         return meta_info
+
+    def get_stats_data(self, stats_data_id: str) -> GetStatsDataResponse:
+        if self.storage.has_stats_data(stats_data_id=stats_data_id):
+            return self.storage.get_stats_data(stats_data_id=stats_data_id)
+        stats_data = super(AppWithStorage, self).get_stats_data(stats_data_id=stats_data_id)
+        self.storage.store_stats_data(stats_data=stats_data)
+        return stats_data
