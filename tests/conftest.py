@@ -6,6 +6,9 @@ from typing import Generator
 from urllib.parse import parse_qs, urlparse
 
 from pytest import fixture
+from pytest_mock import MockerFixture
+
+from estatgojpapi.storages.base import BaseStorage
 
 from .fixtures import (
     sample_get_meta_info_json,
@@ -74,3 +77,8 @@ def http_server_fixture(app_id_for_test: str) -> Generator[str, None, None]:
         yield f"http://localhost:{port}"
         httpd.shutdown()
         server_thread.join()
+
+
+@fixture
+def mock_storage(mocker: MockerFixture) -> Generator[BaseStorage, None, None]:
+    yield mocker.MagicMock(spec=BaseStorage)

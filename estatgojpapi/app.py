@@ -5,6 +5,8 @@ from pydantic import AnyHttpUrl
 
 from .models import GetMetaInfoResponse, GetStatsDataResponse, GetStatsListResponse
 from .settings import AppSettings
+from .storages.base import BaseStorage
+from .storages.factory import create_storage
 
 
 class App:
@@ -37,4 +39,24 @@ class App:
 
     @classmethod
     def create(cls, settings: AppSettings) -> "App":
+        if settings.storage_settings is not None:
+            storage = create_storage(settings=settings.storage_settings)
+            return AppWithStorage(app_id=settings.app_id, base_url=settings.base_url, storage=storage)
         return cls(app_id=settings.app_id, base_url=settings.base_url)
+
+
+class AppWithStorage(App):
+    def __init__(self, app_id: str, base_url: AnyHttpUrl, storage: BaseStorage) -> None:
+        super(AppWithStorage, self).__init__(app_id=app_id, base_url=base_url)
+        self._storage = storage
+
+    @property
+    def storage(self) -> BaseStorage:
+        return self._storage
+
+    def get_stats_list(self) -> GetStatsListResponse:
+        if self.storage.has_stats_list():
+            return self.storage.get_stats_list()
+        stats_list = super(AppWithStorage, self).get_stats_list()
+        self.storage.store_stats_list(stats_list)
+        return stats_list
