@@ -184,7 +184,7 @@ sample_get_stats_data_json = {
             "METAGET_FLG": "Y",
         },
         "STATISTICAL_DATA": {
-            "RESULT_INF": {"TOTAL_NUMBER": 30, "FROM_NUMBER": 1, "TO_NUMBER": 30},
+            "RESULT_INF": {"TOTAL_NUMBER": 27, "FROM_NUMBER": 1, "TO_NUMBER": 27},
             "TABLE_INF": {
                 "@id": "0000000000",
                 "STAT_NAME": {"@code": "99999999", "$": "調査の偽物"},
@@ -279,7 +279,275 @@ sample_get_stats_data_json = {
     }
 }
 
+sample_get_stats_data_0_json = {
+    "GET_STATS_DATA": {
+        "RESULT": {"STATUS": 0, "ERROR_MSG": "正常に終了しました。", "DATE": "2024-05-31T00:38:42.715+09:00"},
+        "PARAMETER": {
+            "LANG": "J",
+            "STATS_DATA_ID": "0000000001",
+            "DATA_FORMAT": "J",
+            "START_POSITION": 1,
+            "METAGET_FLG": "Y",
+        },
+        "STATISTICAL_DATA": {
+            "RESULT_INF": {"TOTAL_NUMBER": 27, "FROM_NUMBER": 1, "TO_NUMBER": 13, "NEXT_KEY": 14},
+            "TABLE_INF": {
+                "@id": "0000000001",
+                "STAT_NAME": {"@code": "99999999", "$": "調査の偽物"},
+                "GOV_ORG": {"@code": "00000", "$": "架空の機関"},
+                "STATISTICS_NAME": "架空調査",
+                "TITLE": "質問1　あなたは、1日平均何時間くらいスマホを使っていますか。　性別",
+                "CYCLE": "年度次",
+                "SURVEY_DATE": "202101-202112",
+                "OPEN_DATE": "2022-01-01",
+                "SMALL_AREA": 0,
+                "COLLECT_AREA": "全国",
+                "MAIN_CATEGORY": {"@code": "00", "$": "その他"},
+                "SUB_CATEGORY": {"@code": "00", "$": "その他"},
+                "OVERALL_TOTAL_NUMBER": 30,
+                "UPDATED_DATE": "2022-01-02",
+                "STATISTICS_NAME_SPEC": {"TABULATION_CATEGORY": "架空調査", "TABULATION_SUB_CATEGORY1": "質問1"},
+                "DESCRIPTION": "",
+                "TITLE_SPEC": {"TABLE_CATEGORY": "質問1", "TABLE_NAME": "1日平均スマホ利用時間　性別"},
+            },
+            "CLASS_INF": {
+                "CLASS_OBJ": [
+                    {
+                        "@id": "cat01",
+                        "@name": "スマホ利用時間",
+                        "CLASS": [
+                            {"@code": "100", "@name": "総数", "@level": "1", "@unit": "人"},
+                            {"@code": "110", "@name": "30分くらい", "@level": "2", "@unit": "%", "@parentCode": "100"},
+                            {"@code": "120", "@name": "1時間くらい", "@level": "2", "@unit": "%", "@parentCode": "100"},
+                            {"@code": "130", "@name": "2時間くらい", "@level": "2", "@unit": "%", "@parentCode": "100"},
+                            {"@code": "140", "@name": "3時間くらい", "@level": "2", "@unit": "%", "@parentCode": "100"},
+                            {"@code": "150", "@name": "4時間くらい", "@level": "2", "@unit": "%", "@parentCode": "100"},
+                            {"@code": "160", "@name": "5時間以上", "@level": "2", "@unit": "%", "@parentCode": "100"},
+                            {
+                                "@code": "170",
+                                "@name": "まったく使わない",
+                                "@level": "2",
+                                "@unit": "%",
+                                "@parentCode": "100",
+                            },
+                            {"@code": "180", "@name": "わからない", "@level": "2", "@unit": "%", "@parentCode": "100"},
+                        ],
+                    },
+                    {
+                        "@id": "cat02",
+                        "@name": "性別",
+                        "CLASS": [
+                            {"@code": "100", "@name": "総数", "@level": "1"},
+                            {"@code": "110", "@name": "男性", "@level": "2", "@parentCode": "100"},
+                            {"@code": "120", "@name": "女性", "@level": "2", "@parentCode": "100"},
+                        ],
+                    },
+                    {
+                        "@id": "time",
+                        "@name": "時間軸(年度次)",
+                        "CLASS": {"@code": "2021000000", "@name": "2021年度", "@level": "1"},
+                    },
+                ]
+            },
+            "DATA_INF": {
+                "NOTE": {"@char": "-", "$": "回答者がいないことを示す。"},
+                "VALUE": [
+                    {"@cat01": "100", "@cat02": "100", "@time": "2021000000", "@unit": "人", "$": "4000"},
+                    {"@cat01": "100", "@cat02": "110", "@time": "2021000000", "@unit": "人", "$": "2000"},
+                    {"@cat01": "100", "@cat02": "120", "@time": "2021000000", "@unit": "人", "$": "2000"},
+                    {"@cat01": "110", "@cat02": "100", "@time": "2021000000", "@unit": "%", "$": "10.0"},
+                    {"@cat01": "110", "@cat02": "110", "@time": "2021000000", "@unit": "%", "$": "9.0"},
+                    {"@cat01": "110", "@cat02": "120", "@time": "2021000000", "@unit": "%", "$": "11.0"},
+                    {"@cat01": "120", "@cat02": "100", "@time": "2021000000", "@unit": "%", "$": "20.0"},
+                    {"@cat01": "120", "@cat02": "110", "@time": "2021000000", "@unit": "%", "$": "19.0"},
+                    {"@cat01": "120", "@cat02": "120", "@time": "2021000000", "@unit": "%", "$": "21.0"},
+                    {"@cat01": "130", "@cat02": "100", "@time": "2021000000", "@unit": "%", "$": "30.0"},
+                    {"@cat01": "130", "@cat02": "110", "@time": "2021000000", "@unit": "%", "$": "29.0"},
+                    {"@cat01": "130", "@cat02": "120", "@time": "2021000000", "@unit": "%", "$": "31.0"},
+                    {"@cat01": "140", "@cat02": "100", "@time": "2021000000", "@unit": "%", "$": "25.0"},
+                ],
+            },
+        },
+    }
+}
+
+
+sample_get_stats_data_1_json = {
+    "GET_STATS_DATA": {
+        "RESULT": {"STATUS": 0, "ERROR_MSG": "正常に終了しました。", "DATE": "2024-05-31T00:38:42.715+09:00"},
+        "PARAMETER": {
+            "LANG": "J",
+            "STATS_DATA_ID": "0000000001",
+            "DATA_FORMAT": "J",
+            "START_POSITION": 1,
+            "METAGET_FLG": "Y",
+        },
+        "STATISTICAL_DATA": {
+            "RESULT_INF": {"TOTAL_NUMBER": 27, "FROM_NUMBER": 14, "TO_NUMBER": 26, "NEXT_KEY": 27},
+            "TABLE_INF": {
+                "@id": "0000000001",
+                "STAT_NAME": {"@code": "99999999", "$": "調査の偽物"},
+                "GOV_ORG": {"@code": "00000", "$": "架空の機関"},
+                "STATISTICS_NAME": "架空調査",
+                "TITLE": "質問1　あなたは、1日平均何時間くらいスマホを使っていますか。　性別",
+                "CYCLE": "年度次",
+                "SURVEY_DATE": "202101-202112",
+                "OPEN_DATE": "2022-01-01",
+                "SMALL_AREA": 0,
+                "COLLECT_AREA": "全国",
+                "MAIN_CATEGORY": {"@code": "00", "$": "その他"},
+                "SUB_CATEGORY": {"@code": "00", "$": "その他"},
+                "OVERALL_TOTAL_NUMBER": 30,
+                "UPDATED_DATE": "2022-01-02",
+                "STATISTICS_NAME_SPEC": {"TABULATION_CATEGORY": "架空調査", "TABULATION_SUB_CATEGORY1": "質問1"},
+                "DESCRIPTION": "",
+                "TITLE_SPEC": {"TABLE_CATEGORY": "質問1", "TABLE_NAME": "1日平均スマホ利用時間　性別"},
+            },
+            "CLASS_INF": {
+                "CLASS_OBJ": [
+                    {
+                        "@id": "cat01",
+                        "@name": "スマホ利用時間",
+                        "CLASS": [
+                            {"@code": "100", "@name": "総数", "@level": "1", "@unit": "人"},
+                            {"@code": "110", "@name": "30分くらい", "@level": "2", "@unit": "%", "@parentCode": "100"},
+                            {"@code": "120", "@name": "1時間くらい", "@level": "2", "@unit": "%", "@parentCode": "100"},
+                            {"@code": "130", "@name": "2時間くらい", "@level": "2", "@unit": "%", "@parentCode": "100"},
+                            {"@code": "140", "@name": "3時間くらい", "@level": "2", "@unit": "%", "@parentCode": "100"},
+                            {"@code": "150", "@name": "4時間くらい", "@level": "2", "@unit": "%", "@parentCode": "100"},
+                            {"@code": "160", "@name": "5時間以上", "@level": "2", "@unit": "%", "@parentCode": "100"},
+                            {
+                                "@code": "170",
+                                "@name": "まったく使わない",
+                                "@level": "2",
+                                "@unit": "%",
+                                "@parentCode": "100",
+                            },
+                            {"@code": "180", "@name": "わからない", "@level": "2", "@unit": "%", "@parentCode": "100"},
+                        ],
+                    },
+                    {
+                        "@id": "cat02",
+                        "@name": "性別",
+                        "CLASS": [
+                            {"@code": "100", "@name": "総数", "@level": "1"},
+                            {"@code": "110", "@name": "男性", "@level": "2", "@parentCode": "100"},
+                            {"@code": "120", "@name": "女性", "@level": "2", "@parentCode": "100"},
+                        ],
+                    },
+                    {
+                        "@id": "time",
+                        "@name": "時間軸(年度次)",
+                        "CLASS": {"@code": "2021000000", "@name": "2021年度", "@level": "1"},
+                    },
+                ]
+            },
+            "DATA_INF": {
+                "NOTE": {"@char": "-", "$": "回答者がいないことを示す。"},
+                "VALUE": [
+                    {"@cat01": "140", "@cat02": "110", "@time": "2021000000", "@unit": "%", "$": "24.0"},
+                    {"@cat01": "140", "@cat02": "120", "@time": "2021000000", "@unit": "%", "$": "26.0"},
+                    {"@cat01": "150", "@cat02": "100", "@time": "2021000000", "@unit": "%", "$": "10.0"},
+                    {"@cat01": "150", "@cat02": "110", "@time": "2021000000", "@unit": "%", "$": "9.0"},
+                    {"@cat01": "150", "@cat02": "120", "@time": "2021000000", "@unit": "%", "$": "11.0"},
+                    {"@cat01": "160", "@cat02": "100", "@time": "2021000000", "@unit": "%", "$": "5.0"},
+                    {"@cat01": "160", "@cat02": "110", "@time": "2021000000", "@unit": "%", "$": "4.0"},
+                    {"@cat01": "160", "@cat02": "120", "@time": "2021000000", "@unit": "%", "$": "6.0"},
+                    {"@cat01": "170", "@cat02": "100", "@time": "2021000000", "@unit": "%", "$": "1.0"},
+                    {"@cat01": "170", "@cat02": "110", "@time": "2021000000", "@unit": "%", "$": "0.9"},
+                    {"@cat01": "170", "@cat02": "120", "@time": "2021000000", "@unit": "%", "$": "1.1"},
+                    {"@cat01": "180", "@cat02": "100", "@time": "2021000000", "@unit": "%", "$": "0.5"},
+                    {"@cat01": "180", "@cat02": "110", "@time": "2021000000", "@unit": "%", "$": "0.4"},
+                ],
+            },
+        },
+    }
+}
+
+sample_get_stats_data_2_json = {
+    "GET_STATS_DATA": {
+        "RESULT": {"STATUS": 0, "ERROR_MSG": "正常に終了しました。", "DATE": "2024-05-31T00:38:42.715+09:00"},
+        "PARAMETER": {
+            "LANG": "J",
+            "STATS_DATA_ID": "0000000001",
+            "DATA_FORMAT": "J",
+            "START_POSITION": 1,
+            "METAGET_FLG": "Y",
+        },
+        "STATISTICAL_DATA": {
+            "RESULT_INF": {"TOTAL_NUMBER": 27, "FROM_NUMBER": 27, "TO_NUMBER": 27},
+            "TABLE_INF": {
+                "@id": "0000000001",
+                "STAT_NAME": {"@code": "99999999", "$": "調査の偽物"},
+                "GOV_ORG": {"@code": "00000", "$": "架空の機関"},
+                "STATISTICS_NAME": "架空調査",
+                "TITLE": "質問1　あなたは、1日平均何時間くらいスマホを使っていますか。　性別",
+                "CYCLE": "年度次",
+                "SURVEY_DATE": "202101-202112",
+                "OPEN_DATE": "2022-01-01",
+                "SMALL_AREA": 0,
+                "COLLECT_AREA": "全国",
+                "MAIN_CATEGORY": {"@code": "00", "$": "その他"},
+                "SUB_CATEGORY": {"@code": "00", "$": "その他"},
+                "OVERALL_TOTAL_NUMBER": 30,
+                "UPDATED_DATE": "2022-01-02",
+                "STATISTICS_NAME_SPEC": {"TABULATION_CATEGORY": "架空調査", "TABULATION_SUB_CATEGORY1": "質問1"},
+                "DESCRIPTION": "",
+                "TITLE_SPEC": {"TABLE_CATEGORY": "質問1", "TABLE_NAME": "1日平均スマホ利用時間　性別"},
+            },
+            "CLASS_INF": {
+                "CLASS_OBJ": [
+                    {
+                        "@id": "cat01",
+                        "@name": "スマホ利用時間",
+                        "CLASS": [
+                            {"@code": "100", "@name": "総数", "@level": "1", "@unit": "人"},
+                            {"@code": "110", "@name": "30分くらい", "@level": "2", "@unit": "%", "@parentCode": "100"},
+                            {"@code": "120", "@name": "1時間くらい", "@level": "2", "@unit": "%", "@parentCode": "100"},
+                            {"@code": "130", "@name": "2時間くらい", "@level": "2", "@unit": "%", "@parentCode": "100"},
+                            {"@code": "140", "@name": "3時間くらい", "@level": "2", "@unit": "%", "@parentCode": "100"},
+                            {"@code": "150", "@name": "4時間くらい", "@level": "2", "@unit": "%", "@parentCode": "100"},
+                            {"@code": "160", "@name": "5時間以上", "@level": "2", "@unit": "%", "@parentCode": "100"},
+                            {
+                                "@code": "170",
+                                "@name": "まったく使わない",
+                                "@level": "2",
+                                "@unit": "%",
+                                "@parentCode": "100",
+                            },
+                            {"@code": "180", "@name": "わからない", "@level": "2", "@unit": "%", "@parentCode": "100"},
+                        ],
+                    },
+                    {
+                        "@id": "cat02",
+                        "@name": "性別",
+                        "CLASS": [
+                            {"@code": "100", "@name": "総数", "@level": "1"},
+                            {"@code": "110", "@name": "男性", "@level": "2", "@parentCode": "100"},
+                            {"@code": "120", "@name": "女性", "@level": "2", "@parentCode": "100"},
+                        ],
+                    },
+                    {
+                        "@id": "time",
+                        "@name": "時間軸(年度次)",
+                        "CLASS": {"@code": "2021000000", "@name": "2021年度", "@level": "1"},
+                    },
+                ]
+            },
+            "DATA_INF": {
+                "NOTE": {"@char": "-", "$": "回答者がいないことを示す。"},
+                "VALUE": [
+                    {"@cat01": "180", "@cat02": "120", "@time": "2021000000", "@unit": "%", "$": "0.6"},
+                ],
+            },
+        },
+    }
+}
+
 
 sample_get_stat_list = GetStatsListResponse.model_validate(sample_get_stat_list_json)
 sample_get_meta_info = GetMetaInfoResponse.model_validate(sample_get_meta_info_json)
 sample_get_stats_data = GetStatsDataResponse.model_validate(sample_get_stats_data_json)
+sample_get_stats_data_0 = GetStatsDataResponse.model_validate(sample_get_stats_data_0_json)
+sample_get_stats_data_1 = GetStatsDataResponse.model_validate(sample_get_stats_data_1_json)
+sample_get_stats_data_2 = GetStatsDataResponse.model_validate(sample_get_stats_data_2_json)

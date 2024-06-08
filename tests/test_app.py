@@ -14,6 +14,7 @@ from estatgojpapi.settings import AppSettings
 from .fixtures import (
     sample_get_meta_info_json,
     sample_get_stat_list_json,
+    sample_get_stats_data,
     sample_get_stats_data_json,
 )
 
@@ -60,6 +61,17 @@ def test_app_get_stats_data(app_id_for_test: str, http_server_fixture: str) -> N
     stats_data = app.get_stats_data(stats_data_id="0000000000")
     assert isinstance(stats_data, GetStatsDataResponse)
     assert stats_data == GetStatsDataResponse.model_validate(sample_get_stats_data_json)
+
+
+def test_app_get_stats_data_with_next_key(app_id_for_test: str, http_server_fixture: str) -> None:
+    app_settings = AppSettings(app_id=app_id_for_test, base_url=http_server_fixture)
+    app = App(app_id=app_settings.app_id, base_url=app_settings.base_url)
+    stats_data = app.get_stats_data(stats_data_id="0000000001")
+    assert isinstance(stats_data, GetStatsDataResponse)
+    assert (
+        stats_data.get_stats_data.statistical_data.data_inf
+        == sample_get_stats_data.get_stats_data.statistical_data.data_inf
+    )
 
 
 def test_app_with_storage_get_stats_list_from_saved_value(

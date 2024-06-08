@@ -42,6 +42,8 @@ def to_estat_attribute_name(name: str) -> str:
     '@char'
     >>> to_estat_attribute_name('level')
     '@level'
+    >>> to_estat_attribute_name('description_')
+    '@description'
     """
     return {
         "id": "@id",
@@ -55,9 +57,25 @@ def to_estat_attribute_name(name: str) -> str:
         "value_": "VALUE",
         "cat01": "@cat01",
         "cat02": "@cat02",
+        "cat03": "@cat03",
+        "cat04": "@cat04",
+        "cat05": "@cat05",
+        "cat06": "@cat06",
+        "cat07": "@cat07",
+        "cat08": "@cat08",
+        "cat09": "@cat09",
+        "cat10": "@cat10",
+        "cat11": "@cat11",
+        "cat12": "@cat12",
+        "cat13": "@cat13",
+        "cat14": "@cat14",
+        "cat15": "@cat15",
+        "area": "@area",
+        "tab": "@tab",
         "time": "@time",
         "char": "@char",
         "level": "@level",
+        "description_": "@description",
     }.get(name, to_upper_snake(name))
 
 
@@ -82,7 +100,9 @@ class BaseModel(PydanticBaseModel):
     '{"GET_STATS_LIST":"foo"}'
     """
 
-    model_config = ConfigDict(populate_by_name=True, alias_generator=to_estat_attribute_name, validate_assignment=True)
+    model_config = ConfigDict(
+        populate_by_name=True, alias_generator=to_estat_attribute_name, validate_assignment=True, extra="forbid"
+    )
 
     def model_dump_json(
         self,
@@ -259,6 +279,7 @@ class ResultInf(BaseModel):
     total_number: Optional[int] = None
     from_number: int
     to_number: int
+    next_key: Optional[int] = None
 
 
 class DatalistInf(BaseModel):
@@ -270,6 +291,9 @@ class DatalistInf(BaseModel):
 class Parameter(BaseModel):
     lang: str
     data_format: str
+    stats_data_id: Optional[str] = None
+    start_position: Optional[int] = None
+    metaget_flg: Optional[str] = None
 
 
 class Result(BaseModel):
@@ -296,10 +320,17 @@ class Class(BaseModel):
     parent_code: Optional[str] = None
 
 
+class Explanation(BaseModel):
+    id: str
+    value: str
+
+
 class ClassObj(BaseModel):
     id: str
     name: str
     class_: list[Class] | Class
+    explanation: Optional[list[Explanation]] = None
+    description_: Optional[str] = None
 
 
 class ClassInf(BaseModel):
@@ -327,15 +358,30 @@ class Note(BaseModel):
 
 
 class Value(BaseModel):
-    cat01: str
-    cat02: str
-    time: str
-    unit: str
+    tab: Optional[str] = None
+    cat01: Optional[str] = None
+    cat02: Optional[str] = None
+    cat03: Optional[str] = None
+    cat04: Optional[str] = None
+    cat05: Optional[str] = None
+    cat06: Optional[str] = None
+    cat07: Optional[str] = None
+    cat08: Optional[str] = None
+    cat09: Optional[str] = None
+    cat10: Optional[str] = None
+    cat11: Optional[str] = None
+    cat12: Optional[str] = None
+    cat13: Optional[str] = None
+    cat14: Optional[str] = None
+    cat15: Optional[str] = None
+    area: Optional[str] = None
+    time: Optional[str] = None
+    unit: Optional[str] = None
     value: str
 
 
 class DataInf(BaseModel):
-    note: Note
+    note: Note | list[Note]
     value_: list[Value]
 
 

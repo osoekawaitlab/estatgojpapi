@@ -26,8 +26,28 @@ class App:
 
     def get_stats_data(self, stats_data_id: str) -> GetStatsDataResponse:
         req = Request(urljoin(str(self.base_url), "getStatsData") + f"?appId={self.app_id}&statsDataId={stats_data_id}")
-        with urlopen(req) as res:
-            return GetStatsDataResponse.model_validate_json(res.read().decode("utf-8"))
+        next_key = -1
+        result = None
+        while next_key is not None:
+            with urlopen(req) as res:
+                tmp = GetStatsDataResponse.model_validate_json(res.read().decode("utf-8"))
+                if result is None:
+                    result = tmp
+                else:
+                    result.get_stats_data.statistical_data.data_inf.value_.extend(
+                        tmp.get_stats_data.statistical_data.data_inf.value_
+                    )
+                    result.get_stats_data.statistical_data.result_inf.to_number = (
+                        tmp.get_stats_data.statistical_data.result_inf.to_number
+                    )
+            if tmp.get_stats_data.statistical_data.result_inf.next_key is not None:
+                next_key = tmp.get_stats_data.statistical_data.result_inf.next_key
+                req = Request(
+                    urljoin(str(self.base_url), "getStatsData")
+                    + f"?appId={self.app_id}&statsDataId={stats_data_id}&startPosition={next_key}"
+                )
+            else:
+                return result
 
     @property
     def app_id(self) -> str:

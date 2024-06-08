@@ -13,6 +13,9 @@ from estatgojpapi.storages.base import BaseStorage
 from .fixtures import (
     sample_get_meta_info_json,
     sample_get_stat_list_json,
+    sample_get_stats_data_0_json,
+    sample_get_stats_data_1_json,
+    sample_get_stats_data_2_json,
     sample_get_stats_data_json,
 )
 
@@ -48,16 +51,41 @@ def http_server_fixture(app_id_for_test: str) -> Generator[str, None, None]:
                 self.end_headers()
                 self.wfile.write(json.dumps(sample_get_meta_info_json).encode("utf-8"))
             elif path == "/getStatsData":
-                if "statsDataId" not in query or query["statsDataId"][0] != "0000000000":
+                if "statsDataId" not in query or query["statsDataId"][0] not in ("0000000000", "0000000001"):
                     self.send_response(400)
                     self.send_header("Content-type", "text/plain; charset=utf-8")
                     self.end_headers()
                     self.wfile.write("Bad Request".encode("utf-8"))
                     return
-                self.send_response(200)
-                self.send_header("Content-type", "application/json; charset=utf-8")
-                self.end_headers()
-                self.wfile.write(json.dumps(sample_get_stats_data_json).encode("utf-8"))
+                if query["statsDataId"][0] == "0000000001":
+                    if "startPosition" not in query:
+                        self.send_response(200)
+                        self.send_header("Content-type", "application/json; charset=utf-8")
+                        self.end_headers()
+                        self.wfile.write(json.dumps(sample_get_stats_data_0_json).encode("utf-8"))
+                        return
+                    if query["startPosition"][0] == "14":
+                        self.send_response(200)
+                        self.send_header("Content-type", "application/json; charset=utf-8")
+                        self.end_headers()
+                        self.wfile.write(json.dumps(sample_get_stats_data_1_json).encode("utf-8"))
+                        return
+                    if query["startPosition"][0] == "27":
+                        self.send_response(200)
+                        self.send_header("Content-type", "application/json; charset=utf-8")
+                        self.end_headers()
+                        self.wfile.write(json.dumps(sample_get_stats_data_2_json).encode("utf-8"))
+                        return
+                elif query["statsDataId"][0] == "0000000000":
+                    self.send_response(200)
+                    self.send_header("Content-type", "application/json; charset=utf-8")
+                    self.end_headers()
+                    self.wfile.write(json.dumps(sample_get_stats_data_json).encode("utf-8"))
+                else:
+                    self.send_response(400)
+                    self.send_header("Content-type", "text/plain; charset=utf-8")
+                    self.end_headers()
+                    self.wfile.write("Bad Request".encode("utf-8"))
             elif path == "/getStatsList":
                 self.send_response(200)
                 self.send_header("Content-type", "application/json; charset=utf-8")
