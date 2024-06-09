@@ -1,3 +1,6 @@
+from time import sleep
+from typing import Dict, Optional
+from urllib.error import HTTPError
 from urllib.parse import urljoin
 from urllib.request import Request, urlopen
 
@@ -14,40 +17,56 @@ class App:
         self._app_id = app_id
         self._base_url = base_url
 
+    def _create_request(self, path: str, query: Optional[Dict[str, str | int]] = None) -> Request:
+        return Request(
+            urljoin(str(self.base_url), path)
+            + "?"
+            + "&".join([f"{k}={v}" for k, v in dict({} if query is None else query, appId=self.app_id).items()])
+        )
+
     def get_stats_list(self) -> GetStatsListResponse:
-        req = Request(urljoin(str(self.base_url), "getStatsList") + f"?appId={self.app_id}")
+        req = self._create_request("getStatsList")
         with urlopen(req) as res:
             return GetStatsListResponse.model_validate_json(res.read().decode("utf-8"))
 
     def get_meta_info(self, stats_data_id: str) -> GetMetaInfoResponse:
-        req = Request(urljoin(str(self.base_url), "getMetaInfo") + f"?appId={self.app_id}&statsDataId={stats_data_id}")
+        req = self._create_request("getMetaInfo", {"statsDataId": stats_data_id})
         with urlopen(req) as res:
             return GetMetaInfoResponse.model_validate_json(res.read().decode("utf-8"))
 
     def get_stats_data(self, stats_data_id: str) -> GetStatsDataResponse:
-        req = Request(urljoin(str(self.base_url), "getStatsData") + f"?appId={self.app_id}&statsDataId={stats_data_id}")
+        req = self._create_request("getStatsData", {"statsDataId": stats_data_id})
         next_key = -1
         result = None
+        retry_count = 9
         while next_key is not None:
-            with urlopen(req) as res:
-                tmp = GetStatsDataResponse.model_validate_json(res.read().decode("utf-8"))
-                if result is None:
-                    result = tmp
+            try:
+                with urlopen(req) as res:
+                    tmp = GetStatsDataResponse.model_validate_json(res.read().decode("utf-8"))
+                    if result is None:
+                        result = tmp
+                    else:
+                        result.get_stats_data.statistical_data.data_inf.value_.extend(
+                            tmp.get_stats_data.statistical_data.data_inf.value_
+                        )
+                        result.get_stats_data.statistical_data.result_inf.to_number = (
+                            tmp.get_stats_data.statistical_data.result_inf.to_number
+                        )
+                        result.get_stats_data.statistical_data.result_inf.next_key = None
+                if tmp.get_stats_data.statistical_data.result_inf.next_key is not None:
+                    next_key = tmp.get_stats_data.statistical_data.result_inf.next_key
+                    req = self._create_request(
+                        "getStatsData", {"statsDataId": stats_data_id, "startPosition": next_key}
+                    )
                 else:
-                    result.get_stats_data.statistical_data.data_inf.value_.extend(
-                        tmp.get_stats_data.statistical_data.data_inf.value_
-                    )
-                    result.get_stats_data.statistical_data.result_inf.to_number = (
-                        tmp.get_stats_data.statistical_data.result_inf.to_number
-                    )
-            if tmp.get_stats_data.statistical_data.result_inf.next_key is not None:
-                next_key = tmp.get_stats_data.statistical_data.result_inf.next_key
-                req = Request(
-                    urljoin(str(self.base_url), "getStatsData")
-                    + f"?appId={self.app_id}&statsDataId={stats_data_id}&startPosition={next_key}"
-                )
-            else:
-                return result
+                    return result
+            except HTTPError as e:
+                if e.code >= 500:
+                    sleep(1)
+                    if retry_count > 0:
+                        retry_count -= 1
+                        continue
+                raise e
 
     @property
     def app_id(self) -> str:
