@@ -329,7 +329,7 @@ class ClassObj(BaseModel):
     id: str
     name: str
     class_: list[Class] | Class
-    explanation: Optional[list[Explanation]] = None
+    explanation: Optional[Explanation | list[Explanation]] = None
     description_: Optional[str] = None
 
 
