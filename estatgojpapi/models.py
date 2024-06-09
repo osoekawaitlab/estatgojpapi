@@ -225,7 +225,7 @@ class StatisticsNameSpec(BaseModel):
     """
     >>> x = StatisticsNameSpec.model_validate_json('{"TABULATION_CATEGORY": "民間企業の勤務条件制度等調査（民間企業退職給付調査）","TABULATION_SUB_CATEGORY1": "統計表","TABULATION_SUB_CATEGORY2": "１　定年制と定年退職者の継続雇用の状況"}')
     >>> x
-    StatisticsNameSpec(tabulation_category='民間企業の勤務条件制度等調査（民間企業退職給付調査）', tabulation_sub_category1='統計表', tabulation_sub_category2='１\u3000定年制と定年退職者の継続雇用の状況', tabulation_sub_category3=None)
+    StatisticsNameSpec(tabulation_category='民間企業の勤務条件制度等調査（民間企業退職給付調査）', tabulation_sub_category1='統計表', tabulation_sub_category2='１\u3000定年制と定年退職者の継続雇用の状況', tabulation_sub_category3=None, tabulation_sub_category4=None, tabulation_sub_category5=None)
     >>> x.model_dump_json()
     '{"TABULATION_CATEGORY":"民間企業の勤務条件制度等調査（民間企業退職給付調査）","TABULATION_SUB_CATEGORY1":"統計表","TABULATION_SUB_CATEGORY2":"１\u3000定年制と定年退職者の継続雇用の状況"}'
     """  # noqa: E501
@@ -234,6 +234,8 @@ class StatisticsNameSpec(BaseModel):
     tabulation_sub_category1: Optional[str] = None
     tabulation_sub_category2: Optional[str] = None
     tabulation_sub_category3: Optional[str] = None
+    tabulation_sub_category4: Optional[str] = None
+    tabulation_sub_category5: Optional[str] = None
 
 
 class TitleSpec(BaseModel):
@@ -246,8 +248,8 @@ class TitleSpec(BaseModel):
     """  # noqa: E501
 
     table_category: Optional[str | int] = None
-    table_sub_category1: Optional[str] = None
-    table_sub_category2: Optional[str] = None
+    table_sub_category1: Optional[str | int] = None
+    table_sub_category2: Optional[str | int] = None
     table_sub_category3: Optional[str] = None
     table_name: str
     table_explanation: Optional[str] = None
