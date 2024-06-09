@@ -225,7 +225,7 @@ class StatisticsNameSpec(BaseModel):
     """
     >>> x = StatisticsNameSpec.model_validate_json('{"TABULATION_CATEGORY": "民間企業の勤務条件制度等調査（民間企業退職給付調査）","TABULATION_SUB_CATEGORY1": "統計表","TABULATION_SUB_CATEGORY2": "１　定年制と定年退職者の継続雇用の状況"}')
     >>> x
-    StatisticsNameSpec(tabulation_category='民間企業の勤務条件制度等調査（民間企業退職給付調査）', tabulation_sub_category1='統計表', tabulation_sub_category2='１\u3000定年制と定年退職者の継続雇用の状況')
+    StatisticsNameSpec(tabulation_category='民間企業の勤務条件制度等調査（民間企業退職給付調査）', tabulation_sub_category1='統計表', tabulation_sub_category2='１\u3000定年制と定年退職者の継続雇用の状況', tabulation_sub_category3=None)
     >>> x.model_dump_json()
     '{"TABULATION_CATEGORY":"民間企業の勤務条件制度等調査（民間企業退職給付調査）","TABULATION_SUB_CATEGORY1":"統計表","TABULATION_SUB_CATEGORY2":"１\u3000定年制と定年退職者の継続雇用の状況"}'
     """  # noqa: E501
@@ -233,18 +233,22 @@ class StatisticsNameSpec(BaseModel):
     tabulation_category: str
     tabulation_sub_category1: Optional[str] = None
     tabulation_sub_category2: Optional[str] = None
+    tabulation_sub_category3: Optional[str] = None
 
 
 class TitleSpec(BaseModel):
     """
     >>> x = TitleSpec.model_validate_json('{"TABLE_CATEGORY": "（推計値）","TABLE_NAME": "定年制の状況","TABLE_EXPLANATION": "１　事務・技術関係職種の従業員がいる企業41,314社について集計した。２　「定年年齢」内の数値は定年制がある企業を100とした場合の割合を示す。"}')
     >>> x
-    TitleSpec(table_category='（推計値）', table_name='定年制の状況', table_explanation='１\u3000事務・技術関係職種の従業員がいる企業41,314社について集計した。２\u3000「定年年齢」内の数値は定年制がある企業を100とした場合の割合を示す。')
+    TitleSpec(table_category='（推計値）', table_sub_category1=None, table_sub_category2=None, table_sub_category3=None, table_name='定年制の状況', table_explanation='１\u3000事務・技術関係職種の従業員がいる企業41,314社について集計した。２\u3000「定年年齢」内の数値は定年制がある企業を100とした場合の割合を示す。')
     >>> x.model_dump_json()
     '{"TABLE_CATEGORY":"（推計値）","TABLE_NAME":"定年制の状況","TABLE_EXPLANATION":"１\u3000事務・技術関係職種の従業員がいる企業41,314社について集計した。２\u3000「定年年齢」内の数値は定年制がある企業を100とした場合の割合を示す。"}'
     """  # noqa: E501
 
     table_category: Optional[str | int] = None
+    table_sub_category1: Optional[str] = None
+    table_sub_category2: Optional[str] = None
+    table_sub_category3: Optional[str] = None
     table_name: str
     table_explanation: Optional[str] = None
 
