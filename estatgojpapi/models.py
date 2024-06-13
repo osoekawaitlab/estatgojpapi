@@ -44,6 +44,8 @@ def to_estat_attribute_name(name: str) -> str:
     '@level'
     >>> to_estat_attribute_name('description_')
     '@description'
+    >>> to_estat_attribute_name('release_count')
+    'releaseCount'
     """
     return {
         "id": "@id",
@@ -76,6 +78,7 @@ def to_estat_attribute_name(name: str) -> str:
         "char": "@char",
         "level": "@level",
         "description_": "@description",
+        "release_count": "releaseCount",
     }.get(name, to_upper_snake(name))
 
 
@@ -334,7 +337,7 @@ class Explanation(BaseModel):
 class ClassObj(BaseModel):
     id: str
     name: str
-    class_: list[Class] | Class
+    class_: Optional[list[Class] | Class] = None
     explanation: Optional[Explanation | list[Explanation]] = None
     description_: Optional[str] = None
 
